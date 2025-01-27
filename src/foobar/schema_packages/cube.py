@@ -16,28 +16,26 @@
 # limitations under the License.
 #
 
-from nomad.datamodel.data import EntryData
-from nomad.datamodel.metainfo.plot import PlotSection, PlotlyFigure
-from nomad.datamodel.metainfo.basesections import Process
-from nomad.datamodel.metainfo.basesections import ProcessStep
-import plotly.express as px
-import plotly.graph_objs as go
-from nomad.units import ureg
-import pandas as pd
-import numpy as np
 from typing import (
     TYPE_CHECKING,
 )
+
+import numpy as np
+import pandas as pd
+import plotly.express as px
+from nomad.datamodel.data import (
+    ArchiveSection,
+    EntryData,
+)
+from nomad.datamodel.metainfo.basesections import Process, ProcessStep
+from nomad.datamodel.metainfo.plot import PlotlyFigure, PlotSection
 from nomad.metainfo import (
     Package,
     Quantity,
-    SubSection,
     Section,
+    SubSection,
 )
-from nomad.datamodel.data import (
-    EntryData,
-    ArchiveSection,
-)
+
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import (
         EntryArchive,
@@ -171,28 +169,18 @@ class Cube(Process, PlotSection, EntryData, ArchiveSection):
             step.H_ex = row['H_ex']
             step.M = row['M']
             # step.duration = ureg.Quantity(float(row['duration [min]']), 'min')
-            # step.initial_temperature = ureg.Quantity(row['initial temperature [C]'], 'celsius')
-            # step.final_temperature = ureg.Quantity(row['final temperature [C]'], 'celsius')
+            # step.initial_temperature = 
+            #   ureg.Quantity(row['initial temperature [C]'], 'celsius')
+            # step.final_temperature = 
+            #   ureg.Quantity(row['final temperature [C]'], 'celsius')
             steps.append(step)
         self.steps = steps
 
         x = [s.H_ex for s in self.steps]
         y = [s.M for s in self.steps]
         figure2 = px.scatter(x=x, y=y, title="Figure title")
-        self.figures.append(PlotlyFigure(label='figure 1', index=1, figure=figure2.to_plotly_json()))
-
-        # if self.data_file:
-        #   with archive.m_context.raw_file(self.data_file) as file:
-        #     df = pd.read_csv(file)
-        #   steps = []
-        #   for i, row in df.iterrows():
-        #     step = TemperatureRamp()
-        #     step.name = row['step name']
-        #     step.duration = ureg.Quantity(float(row['duration [min]']), 'minutes')
-        #     step.initial_temperature = ureg.Quantity(row['initial temperature [C]'], 'celsius')
-        #     step.final_temperature = ureg.Quantity(row['final temperature [C]'], 'celsius')
-        #     steps.append(step)
-        # self.steps = steps
+        self.figures.append(PlotlyFigure(label='figure 1', index=1, 
+                                         figure=figure2.to_plotly_json()))
 
 
 m_package.__init_metainfo__()

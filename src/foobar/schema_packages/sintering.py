@@ -104,7 +104,7 @@ class Sintering(Process, EntryData, ArchiveSection):
             normalized.
             logger (BoundLogger): A structlog logger.
         '''
-        super(Sintering, self).normalize(archive, logger)
+        super(__class__, self).normalize(archive, logger)
         if self.data_file:
           with archive.m_context.raw_file(self.data_file) as file:
             df = pd.read_csv(file)
@@ -113,8 +113,10 @@ class Sintering(Process, EntryData, ArchiveSection):
             step = TemperatureRamp()
             step.name = row['step name']
             step.duration = ureg.Quantity(float(row['duration [min]']), 'minutes')
-            step.initial_temperature = ureg.Quantity(row['initial temperature [C]'], 'celsius')
-            step.final_temperature = ureg.Quantity(row['final temperature [C]'], 'celsius')
+            step.initial_temperature = ureg.Quantity(row['initial temperature [C]'],
+                                                      'celsius')
+            step.final_temperature = ureg.Quantity(row['final temperature [C]'],
+                                                    'celsius')
             steps.append(step)
         self.steps = steps
 
