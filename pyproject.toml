@@ -112,7 +112,7 @@ where = ["src"]
 
 [project.entry-points.'nomad.plugin']
 # parser_entry_point = "foobar.parsers:parser_entry_point"
-schema_package_entry_point = "foobar.schema_packages:schema_package_entry_point"
+# schema_package_entry_point = "foobar.schema_packages:schema_package_entry_point"
 # normalizer_entry_point = "foobar.normalizers:normalizer_entry_point"
 # sintering = "foobar.schema_packages:sintering"
 sintering = "foobar.schema_packages:cube"

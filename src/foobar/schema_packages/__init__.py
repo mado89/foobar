@@ -39,6 +39,6 @@ class CubeEntryPoint(SchemaPackageEntryPoint):
 
 
 cube = CubeEntryPoint(
-    name='Sintering',
+    name='Cube',
     description='Schema package for describing a <please help me what it is>.',
 )
